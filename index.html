@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artur Lima | Portfolio</title>
+    <title>Artur Lima | Developer</title>
     <style>
         * {
             margin: 0;
@@ -12,554 +12,84 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
             font-family: "Courier New", monospace;
-            padding: 20px;
-            text-shadow: 0 0 4px #ffffff;
-            animation: flicker 3s infinite;
-        }
-
-        /* Flicker */
-        @keyframes flicker {
-            0%, 100% { opacity: 0.98; }
-            50% { opacity: 1; }
-        }
-
-        /* Scanline CRT effect */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0.03) 0px,
-                rgba(255, 255, 255, 0.03) 2px,
-                transparent 2px,
-                transparent 4px
-            );
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Boot screen overlay */
-        #boot-screen {
-            position: fixed;
-            inset: 0;
-            background: #000000;
-            color: #ffffff;
             display: flex;
-            align-items: center;
             justify-content: center;
-            z-index: 999;
-        }
-
-        .boot-box {
-            border: 1px solid #ffffff;
-            padding: 24px 28px;
-            max-width: 640px;
-            width: 90%;
-            box-shadow: 0 0 16px #ffffff;
-        }
-
-        .ascii-logo {
-            white-space: pre;
-            font-size: 10px;
-            line-height: 1.2;
-            margin-bottom: 16px;
-        }
-
-        .boot-text {
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        .boot-log {
-            font-size: 0.8rem;
-            border-top: 1px dashed #ffffff;
-            border-bottom: 1px dashed #ffffff;
-            padding: 8px 0;
-            margin-bottom: 16px;
-        }
-
-        .boot-button {
-            display: inline-block;
-            padding: 8px 16px;
-            border: 1px solid #ffffff;
-            background: #000000;
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-
-        .boot-button:hover {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        /* Hide app until boot finishes */
-        #app.hidden {
-            display: none;
-        }
-
-        /* Layout blocks */
-        header, section, footer {
-            border: 1px solid #ffffff;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 12px #ffffff;
-        }
-
-        header {
-            display: flex;
             align-items: center;
-            justify-content: space-between;
+            height: 100vh;
+            padding: 20px;
         }
 
-        nav a {
-            margin-left: 16px;
-            text-decoration: none;
-            color: #ffffff;
-            border-bottom: 1px dashed #ffffff;
-            font-size: 0.85rem;
+        .container {
+            max-width: 640px;
+            text-align: left;
+            border: 1px solid #fff;
+            padding: 32px;
         }
 
-        nav a:hover {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .logo-block {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .mini-label {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-
-        .logo-text {
-            font-size: 0.9rem;
+        h1 {
+            font-size: 1.6rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-        }
-
-        h1, h2 {
-            font-size: 1.2rem;
-            border-bottom: 1px solid #ffffff;
             margin-bottom: 12px;
-            padding-bottom: 6px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Glitch effect for heading */
-        .glitch {
-            position: relative;
-            display: inline-block;
-        }
-
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0.7;
-            clip-path: inset(0 0 50% 0);
-        }
-
-        .glitch::before {
-            transform: translate(-1px, -1px);
-            animation: glitchTop 2s infinite;
-        }
-
-        .glitch::after {
-            transform: translate(1px, 1px);
-            animation: glitchBottom 2.5s infinite;
-            clip-path: inset(50% 0 0 0);
-        }
-
-        @keyframes glitchTop {
-            0% { transform: translate(-1px, -1px); }
-            20% { transform: translate(-3px, -1px); }
-            40% { transform: translate(1px, -2px); }
-            60% { transform: translate(-2px, 0px); }
-            80% { transform: translate(2px, -1px); }
-            100% { transform: translate(-1px, -1px); }
-        }
-
-        @keyframes glitchBottom {
-            0% { transform: translate(1px, 1px); }
-            20% { transform: translate(3px, 2px); }
-            40% { transform: translate(-1px, 1px); }
-            60% { transform: translate(2px, 0px); }
-            80% { transform: translate(-2px, 1px); }
-            100% { transform: translate(1px, 1px); }
-        }
-
-        /* Cursor */
-        .cursor {
-            display: inline-block;
-            margin-left: 4px;
-            animation: blink-cursor 1s step-end infinite;
-        }
-
-        @keyframes blink-cursor {
-            from, to { opacity: 0; }
-            50% { opacity: 1; }
+            border-bottom: 1px solid #fff;
+            padding-bottom: 8px;
         }
 
         .subtitle {
-            font-size: 0.9rem;
-            margin-top: 10px;
-            max-width: 480px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-bottom: 24px;
             line-height: 1.4;
         }
 
-        /* Fake command prompt box */
-        .terminal-box {
-            margin-top: 16px;
-            border: 1px dashed #ffffff;
-            padding: 10px;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        #prompt-output {
-            min-height: 48px;
-            white-space: pre-line;
-        }
-
-        .hero {
-            margin-bottom: 16px;
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .project-card {
-            margin-bottom: 4px;
-            padding: 12px;
-            border: 1px dashed #ffffff;
-            background: rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem;
-        }
-
-        .project-title {
-            font-weight: bold;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .project-meta {
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-bottom: 4px;
-        }
-
-        .project-desc {
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-
-        .pill {
-            background-color: #ffffff;
-            color: #000000;
-            padding: 2px 6px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        /* Contact */
-        .section-intro {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .contact-line {
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-        }
-
-        .contact-line a {
-            color: #ffffff;
+        .links a {
+            display: inline-block;
+            margin-right: 18px;
+            margin-bottom: 8px;
+            color: #fff;
             text-decoration: none;
-            border-bottom: 1px dashed #ffffff;
+            border-bottom: 1px dashed #fff;
+            font-size: 0.85rem;
         }
 
-        .contact-line a:hover {
-            background: #ffffff;
-            color: #000000;
+        .links a:hover {
+            background: #fff;
+            color: #000;
         }
 
         footer {
-            text-align: center;
-            font-size: 0.75rem;
-            opacity: 0.85;
-            border: none;
-            box-shadow: none;
-        }
-
-        @media (min-width: 720px) {
-            .hero-layout {
-                display: grid;
-                grid-template-columns: 2fr 1.2fr;
-                gap: 20px;
-                align-items: flex-start;
-            }
+            margin-top: 28px;
+            font-size: 0.7rem;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
-    <!-- BOOT SCREEN -->
-    <div id="boot-screen">
-        <div class="boot-box">
-            <pre class="ascii-logo">
-   ___      _            
-  / _ \ ___| |_ _ __     
- / /_)/ _ \ __| '__|    
-/ ___/  __/ |_| |       
-\/    \___|\__|_|       
-  ARTUR  LIMA  //  SYS
-            </pre>
-            <div class="boot-text">
-                INITIALIZING PERSONAL PORTFOLIO ENVIRONMENT...
-            </div>
-            <div class="boot-log" id="boot-log">
-                [OK] Video adapter: MONOCHROME<br>
-                [OK] Input device: KEYBOARD<br>
-                [OK] Storage: PROJECTS.DRV<br>
-                [OK] Network: ONLINE<br>
-                [ .. ] Waiting for user to start system...
-            </div>
-            <button id="start-btn" class="boot-button">
-                START SYSTEM
-            </button>
+    <div class="container">
+        <h1>Artur Lima</h1>
+
+        <p class="subtitle">
+            Developer building small experiments with
+            web, AI, and interactive systems.
+        </p>
+
+        <div class="links">
+            <a href="mailto:youremail@example.com">Email</a>
+            <a href="https://github.com/arturlimaaa" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
         </div>
-    </div>
-
-    <!-- MAIN APP -->
-    <div id="app" class="hidden">
-        <header>
-            <div class="logo-block">
-                <div class="mini-label">USER: ARTUR_LIMA</div>
-                <div class="logo-text">PORTFOLIO_SYSTEM.EXE</div>
-            </div>
-            <nav>
-                <a href="#about">ABOUT</a>
-                <a href="#projects">PROJECTS</a>
-                <a href="#contact">CONTACT</a>
-            </nav>
-        </header>
-
-        <main>
-            <!-- HERO -->
-            <section class="hero">
-                <div class="hero-layout">
-                    <div>
-                        <h1>
-                            <span class="glitch" data-text="CREATING THINGS WITH CODE">
-                                CREATING THINGS WITH CODE
-                            </span>
-                            <span class="cursor">█</span>
-                        </h1>
-                        <p class="subtitle">
-                            I’m Artur, a developer interested in AI, AR, and web tools.
-                            I like building small experiments that feel like real systems
-                            you can poke and break.
-                        </p>
-
-                        <div class="terminal-box">
-                            <div id="prompt-output"></div>
-                            <span class="cursor">█</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h2>STATUS</h2>
-                        <p class="section-intro">
-                            LOCATION: Online<br>
-                            MODE: Learning, experimenting, shipping<br>
-                            FOCUS: AI, computer vision, AR, web interfaces
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ABOUT -->
-            <section id="about">
-                <h2>ABOUT</h2>
-                <p class="section-intro">
-                    I like mixing machine learning, interaction, and a bit of playful chaos.
-                    From sign language tools to AR menus, I enjoy turning vague ideas into
-                    something you can actually click, run, and test.
-                </p>
-            </section>
-
-            <!-- PROJECTS -->
-            <section id="projects">
-                <h2>PROJECTS</h2>
-                <p class="section-intro">
-                    SELECTED_ENTRIES.TXT
-                </p>
-
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-title">3D Menu AR Viewer</div>
-                        <div class="project-meta">WEB • AR • INTERACTIVE</div>
-                        <p class="project-desc">
-                            An AR-based experience to visualize restaurant dishes as 3D models
-                            directly from a QR code on the table.
-                        </p>
-                        <div class="project-tags">
-                            <span class="pill">Web</span>
-                            <span class="pill">AR</span>
-                            <span class="pill">Prototype</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-title">Sign Language AI Helper</div>
-                        <div class="project-meta">COMPUTER VISION • ML</div>
-                        <p class="project-desc">
-                            A real-time system that detects sign language gestures and
-                            translates them into on-screen text and speech.
-                        </p>
-                        <div class="project-tags">
-                            <span class="pill">Python</span>
-                            <span class="pill">Vision</span>
-                            <span class="pill">Real-time</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-title">Data Viz Dashboard</div>
-                        <div class="project-meta">DATA • FRONTEND</div>
-                        <p class="project-desc">
-                            A small dashboard to explore data with simple interactive charts,
-                            focusing on clarity and narrative.
-                        </p>
-                        <div class="project-tags">
-                            <span class="pill">Data</span>
-                            <span class="pill">Frontend</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-title">Next Experiments</div>
-                        <div class="project-meta">OPEN TO COLLAB</div>
-                        <p class="project-desc">
-                            Always looking for ideas around AI tools, education, accessibility,
-                            and weird interfaces that shouldn’t exist, but do.
-                        </p>
-                        <div class="project-tags">
-                            <span class="pill">Collab</span>
-                            <span class="pill">Prototypes</span>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- CONTACT -->
-            <section id="contact">
-                <h2>CONTACT</h2>
-                <p class="section-intro">
-                    To send a message, select a protocol:
-                </p>
-                <p class="contact-line">
-                    EMAIL: <a href="mailto:youremail@example.com">youremail@example.com</a>
-                </p>
-                <p class="contact-line">
-                    GITHUB: <a href="https://github.com/arturlimaaa" target="_blank">github.com/arturlimaaa</a>
-                </p>
-                <p class="contact-line">
-                    LINKEDIN: <a href="https://www.linkedin.com" target="_blank">linkedin.com</a>
-                </p>
-            </section>
-        </main>
 
         <footer>
-            © <span id="year"></span> ARTUR_LIMA // PORTFOLIO_SYSTEM.EXE
+            © <span id="year"></span> // Portfolio
         </footer>
     </div>
 
     <script>
-        // Set year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Boot screen behavior
-        const bootScreen = document.getElementById('boot-screen');
-        const app = document.getElementById('app');
-        const startBtn = document.getElementById('start-btn');
-        const bootLog = document.getElementById('boot-log');
-
-        startBtn.addEventListener('click', () => {
-            bootLog.innerHTML += "<br>[OK] User confirmed start.";
-            setTimeout(() => {
-                bootScreen.style.display = 'none';
-                app.classList.remove('hidden');
-                startPromptTyping();
-            }, 600);
-        });
-
-        // Fake command prompt typing
-        const promptOutput = document.getElementById('prompt-output');
-        const promptLines = [
-            "C:\\USER\\ARTUR> boot portfolio_system.exe",
-            "loading modules: web, ai, cv, ar",
-            "status: ONLINE_✓"
-        ];
-
-        let lineIndex = 0;
-        let charIndex = 0;
-
-        function startPromptTyping() {
-            lineIndex = 0;
-            charIndex = 0;
-            promptOutput.textContent = "";
-            typeNextChar();
-        }
-
-        function typeNextChar() {
-            if (lineIndex >= promptLines.length) {
-                return;
-            }
-
-            const currentLine = promptLines[lineIndex];
-
-            if (charIndex <= currentLine.length) {
-                // Rewrite all lines each time for simple multi-line effect
-                const previousLines = promptLines.slice(0, lineIndex).join("\n");
-                const currentPart = currentLine.slice(0, charIndex);
-                promptOutput.textContent = previousLines
-                    + (previousLines ? "\n" : "")
-                    + currentPart;
-                charIndex++;
-                setTimeout(typeNextChar, 40);
-            } else {
-                lineIndex++;
-                charIndex = 0;
-                setTimeout(typeNextChar, 200);
-            }
-        }
+        document.getElementById('year')
+            .textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
