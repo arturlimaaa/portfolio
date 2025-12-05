@@ -3,16 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Page</title>
+    <title>Artur Lima | Portfolio</title>
     <style>
+        /* Global reset-ish */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: black;
-            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1f2933, #020617);
+            color: #f9fafb;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        nav a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* Hero section */
+        .hero {
+            margin-bottom: 3.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2.3rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 span {
+            color: #22c55e;
+        }
+
+        .subtitle {
+            font-size: 0.98rem;
+            color: #9ca3af;
+            max-width: 32rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid #22c55e;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: #22c55e;
+            color: #020617;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #e5e7eb;
+            border-color: #4b5563;
+        }
+
+        .btn:hover {
+            filter: brightness(1.07);
+        }
+
+        .btn-outline:hover {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        section p.section-intro {
+            font-size: 0.92rem;
+            color: #9ca3af;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 0.9rem;
+            padding: 1rem 1.1rem;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+            border-color: #22c55e;
+        }
+
+        .project-title {
+            font-size: 0.98rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .project-meta {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            margin-bottom: 0.2rem;
+        }
+
+        .project-desc {
+            font-size: 0.86rem;
+            color: #d1d5db;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .pill {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(75, 85, 99, 0.9);
+            color: #9ca3af;
+        }
+
+        /* Contact */
+        .contact-line {
+            font-size: 0.9rem;
+            color: #d1d5db;
+        }
+
+        .contact-line a {
+            color: #22c55e;
+            text-decoration: none;
+        }
+
+        .contact-line a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (min-width: 700px) {
+            .hero {
+                display: grid;
+                grid-template-columns: 2fr 1.2fr;
+                gap: 2.5rem;
+                align-items: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Hello, world!</h1>
-    <p>Great things are coming.</p>
+    <div class="page">
+        <header>
+            <div class="logo">Artur Lima</div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- HERO -->
+            <section class="hero">
+                <div>
+                    <div class="tag">Portfolio</div>
+                    <h1>
+                        Hi, I’m Artur.<br>
+                        <span>Developer & AI tinkerer.</span>
+                    </h1>
+                    <p class="subtitle">
+                        I like building things at the intersection of web, data, and AI —
+                        from small experiments to products that real people can use.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn">
+                            View projects →
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            Get in touch
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT -->
+            <section id="about">
+                <h2>About</h2>
+                <p class="section-intro">
+                    Short bio goes here. For example:
+                    I’m a student / developer focused on AI, AR, and web technologies.
+                    I enjoy turning ideas into real interfaces and tools people can play with.
+                </p>
+            </section>
+
+            <!-- PROJECTS -->
+            <section id="projects">
+                <h2>Projects</h2>
+                <p class="section-intro">
+                    A few things I’ve been working on recently:
+                </p>
+
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <h3 class="project-title">3D Menu AR Viewer</h3>
+                        <div class="project-meta">Web • AR • JavaScript</div>
+                        <p class="project-desc">
+                            An AR-based experience to visualize restaurant dishes as 3D models
+                            directly from a QR code on the table.
+                        </p>
+                        <div class="project-tags">
+                            <span class="pill">Three.js</span>
+                            <span class="pill">WebXR</span>
+                            <span class="pill">Product prototype</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3 class="project-title">Sign Language AI Helper</h3>
+                        <div class="project-meta">Computer Vision • ML</div>
+                        <p class="project-desc">
+                            A real-time system that detects sign language gestures and
+                            translates them into on-screen text and speech.
+                        </p>
+                        <div class="project-tags">
+                            <span class="pill">Python</span>
+                            <span class="pill">PyTorch</span>
+                            <span class="pill">MediaPipe</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3 class="project-title">Data Viz Dashboard</h3>
+                        <div class="project-meta">Data • Frontend</div>
+                        <p class="project-desc">
+                            A small dashboard to explore data with interactive charts,
+                            focusing on clean UX and clear storytelling.
+                        </p>
+                        <div class="project-tags">
+                            <span class="pill">React</span>
+                            <span class="pill">Charts</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3 class="project-title">Your Next Project</h3>
+                        <div class="project-meta">Open to collaboration</div>
+                        <p class="project-desc">
+                            I’m always looking for interesting ideas related to AI, AR, and
+                            meaningful user experiences.
+                        </p>
+                        <div class="project-tags">
+                            <span class="pill">Let’s build</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact">
+                <h2>Contact</h2>
+                <p class="section-intro">
+                    available on:
+                </p>
+                <p class="contact-line">
+                    Email: <a href="mailto:arturlimaj04@gmail.com">youremail@example.com</a>
+                </p>
+                <p class="contact-line" style="margin-top: 0.3rem;">
+                    GitHub: <a href="https://github.com/arturlimaaa" target="_blank">github.com/arturlimaaa</a>
+                </p>
+                <p class="contact-line" style="margin-top: 0.3rem;">
+                    LinkedIn: <a href="https://www.linkedin.com/in/arturlimaj/" target="_blank">linkedin.com/in/joaovytor/</a>
+                    <!-- swap to your own link later -->
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            © <span id="year"></span> Artur Lima
+        </footer>
+    </div>
+
+    <script>
+        // small touch: dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
