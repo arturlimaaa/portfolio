@@ -5,330 +5,474 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artur Lima | Portfolio</title>
     <style>
-        /* Global reset-ish */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #1f2933, #020617);
-            color: #f9fafb;
-            min-height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            text-shadow: 0 0 4px #ffffff;
+            animation: flicker 3s infinite;
         }
 
-        .page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2.5rem 1.5rem 4rem;
+        /* Flicker */
+        @keyframes flicker {
+            0%, 100% { opacity: 0.98; }
+            50% { opacity: 1; }
+        }
+
+        /* Scanline CRT effect */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Boot screen overlay */
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .boot-box {
+            border: 1px solid #ffffff;
+            padding: 24px 28px;
+            max-width: 640px;
+            width: 90%;
+            box-shadow: 0 0 16px #ffffff;
+        }
+
+        .ascii-logo {
+            white-space: pre;
+            font-size: 10px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .boot-text {
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .boot-log {
+            font-size: 0.8rem;
+            border-top: 1px dashed #ffffff;
+            border-bottom: 1px dashed #ffffff;
+            padding: 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .boot-button {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid #ffffff;
+            background: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+        }
+
+        .boot-button:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* Hide app until boot finishes */
+        #app.hidden {
+            display: none;
+        }
+
+        /* Layout blocks */
+        header, section, footer {
+            border: 1px solid #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 12px #ffffff;
         }
 
         header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 3rem;
+            justify-content: space-between;
         }
 
-        .logo {
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            font-size: 0.9rem;
+        nav a {
+            margin-left: 16px;
+            text-decoration: none;
+            color: #ffffff;
+            border-bottom: 1px dashed #ffffff;
+            font-size: 0.85rem;
+        }
+
+        nav a:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .logo-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mini-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.7;
         }
 
-        nav a {
-            margin-left: 1.5rem;
-            text-decoration: none;
+        .logo-text {
             font-size: 0.9rem;
-            color: #e5e7eb;
-            opacity: 0.8;
-        }
-
-        nav a:hover {
-            opacity: 1;
-        }
-
-        /* Hero section */
-        .hero {
-            margin-bottom: 3.5rem;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.7rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            color: #9ca3af;
-            margin-bottom: 1rem;
+            letter-spacing: 2px;
         }
 
-        h1 {
-            font-size: clamp(2.3rem, 4vw, 3rem);
-            line-height: 1.2;
-            margin-bottom: 1rem;
+        h1, h2 {
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        h1 span {
-            color: #22c55e;
+        /* Glitch effect for heading */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.7;
+            clip-path: inset(0 0 50% 0);
+        }
+
+        .glitch::before {
+            transform: translate(-1px, -1px);
+            animation: glitchTop 2s infinite;
+        }
+
+        .glitch::after {
+            transform: translate(1px, 1px);
+            animation: glitchBottom 2.5s infinite;
+            clip-path: inset(50% 0 0 0);
+        }
+
+        @keyframes glitchTop {
+            0% { transform: translate(-1px, -1px); }
+            20% { transform: translate(-3px, -1px); }
+            40% { transform: translate(1px, -2px); }
+            60% { transform: translate(-2px, 0px); }
+            80% { transform: translate(2px, -1px); }
+            100% { transform: translate(-1px, -1px); }
+        }
+
+        @keyframes glitchBottom {
+            0% { transform: translate(1px, 1px); }
+            20% { transform: translate(3px, 2px); }
+            40% { transform: translate(-1px, 1px); }
+            60% { transform: translate(2px, 0px); }
+            80% { transform: translate(-2px, 1px); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        /* Cursor */
+        .cursor {
+            display: inline-block;
+            margin-left: 4px;
+            animation: blink-cursor 1s step-end infinite;
+        }
+
+        @keyframes blink-cursor {
+            from, to { opacity: 0; }
+            50% { opacity: 1; }
         }
 
         .subtitle {
-            font-size: 0.98rem;
-            color: #9ca3af;
-            max-width: 32rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .btn {
-            border-radius: 999px;
-            border: 1px solid #22c55e;
-            padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
-            cursor: pointer;
-            background: #22c55e;
-            color: #020617;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
+            margin-top: 10px;
+            max-width: 480px;
+            line-height: 1.4;
         }
 
-        .btn-outline {
-            background: transparent;
-            color: #e5e7eb;
-            border-color: #4b5563;
+        /* Fake command prompt box */
+        .terminal-box {
+            margin-top: 16px;
+            border: 1px dashed #ffffff;
+            padding: 10px;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
         }
 
-        .btn:hover {
-            filter: brightness(1.07);
+        #prompt-output {
+            min-height: 48px;
+            white-space: pre-line;
         }
 
-        .btn-outline:hover {
-            background: rgba(15, 23, 42, 0.8);
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 3rem;
-        }
-
-        section h2 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        section p.section-intro {
-            font-size: 0.92rem;
-            color: #9ca3af;
-            margin-bottom: 1.2rem;
+        .hero {
+            margin-bottom: 16px;
         }
 
         /* Projects */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 12px;
         }
 
         .project-card {
-            background: rgba(15, 23, 42, 0.85);
-            border-radius: 0.9rem;
-            padding: 1rem 1.1rem;
-            border: 1px solid rgba(55, 65, 81, 0.9);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
-            border-color: #22c55e;
+            margin-bottom: 4px;
+            padding: 12px;
+            border: 1px dashed #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
         }
 
         .project-title {
-            font-size: 0.98rem;
-            margin-bottom: 0.35rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
         .project-meta {
-            font-size: 0.78rem;
-            color: #9ca3af;
-            margin-bottom: 0.2rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-bottom: 4px;
         }
 
         .project-desc {
-            font-size: 0.86rem;
-            color: #d1d5db;
-            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 4px;
         }
 
         .pill {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 2px 6px;
             font-size: 0.7rem;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            border: 1px solid rgba(75, 85, 99, 0.9);
-            color: #9ca3af;
+            font-weight: bold;
         }
 
         /* Contact */
+        .section-intro {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
         .contact-line {
             font-size: 0.9rem;
-            color: #d1d5db;
+            margin-bottom: 4px;
         }
 
         .contact-line a {
-            color: #22c55e;
+            color: #ffffff;
             text-decoration: none;
+            border-bottom: 1px dashed #ffffff;
         }
 
         .contact-line a:hover {
-            text-decoration: underline;
+            background: #ffffff;
+            color: #000000;
         }
 
         footer {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #6b7280;
             text-align: center;
+            font-size: 0.75rem;
+            opacity: 0.85;
+            border: none;
+            box-shadow: none;
         }
 
-        /* Responsive */
-        @media (min-width: 700px) {
-            .hero {
+        @media (min-width: 720px) {
+            .hero-layout {
                 display: grid;
                 grid-template-columns: 2fr 1.2fr;
-                gap: 2.5rem;
-                align-items: center;
-            }
-
-            .projects-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 20px;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 <body>
-    <div class="page">
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+        <div class="boot-box">
+            <pre class="ascii-logo">
+   ___      _            
+  / _ \ ___| |_ _ __     
+ / /_)/ _ \ __| '__|    
+/ ___/  __/ |_| |       
+\/    \___|\__|_|       
+  ARTUR  LIMA  //  SYS
+            </pre>
+            <div class="boot-text">
+                INITIALIZING PERSONAL PORTFOLIO ENVIRONMENT...
+            </div>
+            <div class="boot-log" id="boot-log">
+                [OK] Video adapter: MONOCHROME<br>
+                [OK] Input device: KEYBOARD<br>
+                [OK] Storage: PROJECTS.DRV<br>
+                [OK] Network: ONLINE<br>
+                [ .. ] Waiting for user to start system...
+            </div>
+            <button id="start-btn" class="boot-button">
+                START SYSTEM
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app" class="hidden">
         <header>
-            <div class="logo">Artur Lima</div>
+            <div class="logo-block">
+                <div class="mini-label">USER: ARTUR_LIMA</div>
+                <div class="logo-text">PORTFOLIO_SYSTEM.EXE</div>
+            </div>
             <nav>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+                <a href="#about">ABOUT</a>
+                <a href="#projects">PROJECTS</a>
+                <a href="#contact">CONTACT</a>
             </nav>
         </header>
 
         <main>
             <!-- HERO -->
             <section class="hero">
-                <div>
-                    <div class="tag">Portfolio</div>
-                    <h1>
-                        Hi, I’m Artur.<br>
-                        <span>Developer & AI tinkerer.</span>
-                    </h1>
-                    <p class="subtitle">
-                        I like building things at the intersection of web, data, and AI —
-                        from small experiments to products that real people can use.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn">
-                            View projects →
-                        </a>
-                        <a href="#contact" class="btn btn-outline">
-                            Get in touch
-                        </a>
+                <div class="hero-layout">
+                    <div>
+                        <h1>
+                            <span class="glitch" data-text="CREATING THINGS WITH CODE">
+                                CREATING THINGS WITH CODE
+                            </span>
+                            <span class="cursor">█</span>
+                        </h1>
+                        <p class="subtitle">
+                            I’m Artur, a developer interested in AI, AR, and web tools.
+                            I like building small experiments that feel like real systems
+                            you can poke and break.
+                        </p>
+
+                        <div class="terminal-box">
+                            <div id="prompt-output"></div>
+                            <span class="cursor">█</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>STATUS</h2>
+                        <p class="section-intro">
+                            LOCATION: Online<br>
+                            MODE: Learning, experimenting, shipping<br>
+                            FOCUS: AI, computer vision, AR, web interfaces
+                        </p>
                     </div>
                 </div>
             </section>
 
             <!-- ABOUT -->
             <section id="about">
-                <h2>About</h2>
+                <h2>ABOUT</h2>
                 <p class="section-intro">
-                    Short bio goes here. For example:
-                    I’m a student / developer focused on AI, AR, and web technologies.
-                    I enjoy turning ideas into real interfaces and tools people can play with.
+                    I like mixing machine learning, interaction, and a bit of playful chaos.
+                    From sign language tools to AR menus, I enjoy turning vague ideas into
+                    something you can actually click, run, and test.
                 </p>
             </section>
 
             <!-- PROJECTS -->
             <section id="projects">
-                <h2>Projects</h2>
+                <h2>PROJECTS</h2>
                 <p class="section-intro">
-                    A few things I’ve been working on recently:
+                    SELECTED_ENTRIES.TXT
                 </p>
 
                 <div class="projects-grid">
                     <article class="project-card">
-                        <h3 class="project-title">3D Menu AR Viewer</h3>
-                        <div class="project-meta">Web • AR • JavaScript</div>
+                        <div class="project-title">3D Menu AR Viewer</div>
+                        <div class="project-meta">WEB • AR • INTERACTIVE</div>
                         <p class="project-desc">
                             An AR-based experience to visualize restaurant dishes as 3D models
                             directly from a QR code on the table.
                         </p>
                         <div class="project-tags">
-                            <span class="pill">Three.js</span>
-                            <span class="pill">WebXR</span>
-                            <span class="pill">Product prototype</span>
+                            <span class="pill">Web</span>
+                            <span class="pill">AR</span>
+                            <span class="pill">Prototype</span>
                         </div>
                     </article>
 
                     <article class="project-card">
-                        <h3 class="project-title">Sign Language AI Helper</h3>
-                        <div class="project-meta">Computer Vision • ML</div>
+                        <div class="project-title">Sign Language AI Helper</div>
+                        <div class="project-meta">COMPUTER VISION • ML</div>
                         <p class="project-desc">
                             A real-time system that detects sign language gestures and
                             translates them into on-screen text and speech.
                         </p>
                         <div class="project-tags">
                             <span class="pill">Python</span>
-                            <span class="pill">PyTorch</span>
-                            <span class="pill">MediaPipe</span>
+                            <span class="pill">Vision</span>
+                            <span class="pill">Real-time</span>
                         </div>
                     </article>
 
                     <article class="project-card">
-                        <h3 class="project-title">Data Viz Dashboard</h3>
-                        <div class="project-meta">Data • Frontend</div>
+                        <div class="project-title">Data Viz Dashboard</div>
+                        <div class="project-meta">DATA • FRONTEND</div>
                         <p class="project-desc">
-                            A small dashboard to explore data with interactive charts,
-                            focusing on clean UX and clear storytelling.
+                            A small dashboard to explore data with simple interactive charts,
+                            focusing on clarity and narrative.
                         </p>
                         <div class="project-tags">
-                            <span class="pill">React</span>
-                            <span class="pill">Charts</span>
+                            <span class="pill">Data</span>
+                            <span class="pill">Frontend</span>
                         </div>
                     </article>
 
                     <article class="project-card">
-                        <h3 class="project-title">Your Next Project</h3>
-                        <div class="project-meta">Open to collaboration</div>
+                        <div class="project-title">Next Experiments</div>
+                        <div class="project-meta">OPEN TO COLLAB</div>
                         <p class="project-desc">
-                            I’m always looking for interesting ideas related to AI, AR, and
-                            meaningful user experiences.
+                            Always looking for ideas around AI tools, education, accessibility,
+                            and weird interfaces that shouldn’t exist, but do.
                         </p>
                         <div class="project-tags">
-                            <span class="pill">Let’s build</span>
+                            <span class="pill">Collab</span>
+                            <span class="pill">Prototypes</span>
                         </div>
                     </article>
                 </div>
@@ -336,31 +480,86 @@
 
             <!-- CONTACT -->
             <section id="contact">
-                <h2>Contact</h2>
+                <h2>CONTACT</h2>
                 <p class="section-intro">
-                    available on:
+                    To send a message, select a protocol:
                 </p>
                 <p class="contact-line">
-                    Email: <a href="mailto:arturlimaj04@gmail.com">youremail@example.com</a>
+                    EMAIL: <a href="mailto:youremail@example.com">youremail@example.com</a>
                 </p>
-                <p class="contact-line" style="margin-top: 0.3rem;">
-                    GitHub: <a href="https://github.com/arturlimaaa" target="_blank">github.com/arturlimaaa</a>
+                <p class="contact-line">
+                    GITHUB: <a href="https://github.com/arturlimaaa" target="_blank">github.com/arturlimaaa</a>
                 </p>
-                <p class="contact-line" style="margin-top: 0.3rem;">
-                    LinkedIn: <a href="https://www.linkedin.com/in/arturlimaj/" target="_blank">linkedin.com/in/joaovytor/</a>
-                    <!-- swap to your own link later -->
+                <p class="contact-line">
+                    LINKEDIN: <a href="https://www.linkedin.com" target="_blank">linkedin.com</a>
                 </p>
             </section>
         </main>
 
         <footer>
-            © <span id="year"></span> Artur Lima
+            © <span id="year"></span> ARTUR_LIMA // PORTFOLIO_SYSTEM.EXE
         </footer>
     </div>
 
     <script>
-        // small touch: dynamic year in footer
+        // Set year
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Boot screen behavior
+        const bootScreen = document.getElementById('boot-screen');
+        const app = document.getElementById('app');
+        const startBtn = document.getElementById('start-btn');
+        const bootLog = document.getElementById('boot-log');
+
+        startBtn.addEventListener('click', () => {
+            bootLog.innerHTML += "<br>[OK] User confirmed start.";
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+                app.classList.remove('hidden');
+                startPromptTyping();
+            }, 600);
+        });
+
+        // Fake command prompt typing
+        const promptOutput = document.getElementById('prompt-output');
+        const promptLines = [
+            "C:\\USER\\ARTUR> boot portfolio_system.exe",
+            "loading modules: web, ai, cv, ar",
+            "status: ONLINE_✓"
+        ];
+
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function startPromptTyping() {
+            lineIndex = 0;
+            charIndex = 0;
+            promptOutput.textContent = "";
+            typeNextChar();
+        }
+
+        function typeNextChar() {
+            if (lineIndex >= promptLines.length) {
+                return;
+            }
+
+            const currentLine = promptLines[lineIndex];
+
+            if (charIndex <= currentLine.length) {
+                // Rewrite all lines each time for simple multi-line effect
+                const previousLines = promptLines.slice(0, lineIndex).join("\n");
+                const currentPart = currentLine.slice(0, charIndex);
+                promptOutput.textContent = previousLines
+                    + (previousLines ? "\n" : "")
+                    + currentPart;
+                charIndex++;
+                setTimeout(typeNextChar, 40);
+            } else {
+                lineIndex++;
+                charIndex = 0;
+                setTimeout(typeNextChar, 200);
+            }
+        }
     </script>
 </body>
 </html>
