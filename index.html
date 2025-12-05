@@ -3,93 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artur Lima | Developer</title>
+    <title>Artur Lima</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: "Courier New", monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
+            background: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 640px;
-            text-align: left;
-            border: 1px solid #fff;
-            padding: 32px;
+        nav {
+            margin-bottom: 40px;
+        }
+
+        nav a {
+            margin-right: 24px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
         }
 
         h1 {
-            font-size: 1.6rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #fff;
-            padding-bottom: 8px;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        .subtitle {
-            font-size: 0.95rem;
-            opacity: 0.85;
-            margin-bottom: 24px;
-            line-height: 1.4;
+        img {
+            width: 200px;
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
 
-        .links a {
-            display: inline-block;
-            margin-right: 18px;
-            margin-bottom: 8px;
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 1px dashed #fff;
-            font-size: 0.85rem;
+        p {
+            margin-bottom: 16px;
         }
 
-        .links a:hover {
-            background: #fff;
-            color: #000;
+        a {
+            color: #9d9dff; /* subtle purple blue */
         }
 
-        footer {
-            margin-top: 28px;
-            font-size: 0.7rem;
-            opacity: 0.6;
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Artur Lima</h1>
 
-        <p class="subtitle">
-            Developer building small experiments with
-            web, AI, and interactive systems.
-        </p>
+    <nav>
+        <a href="#">essays</a>
+        <a href="#">projects</a>
+    </nav>
 
-        <div class="links">
-            <a href="mailto:youremail@example.com">Email</a>
-            <a href="https://github.com/arturlimaaa" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
-        </div>
+    <h1>Artur Lima</h1>
 
-        <footer>
-            © <span id="year"></span> // Portfolio
-        </footer>
-    </div>
+    <!-- Swap this with a real image -->
+    <img src="your-photo.jpg" alt="Photo of Artur">
 
-    <script>
-        document.getElementById('year')
-            .textContent = new Date().getFullYear();
-    </script>
+    <p>Hi! I'm Artur. I like building things with code — especially around AI, AR, and the web.</p>
+
+    <p>
+        I’m currently experimenting with interactive systems that mix digital and physical experiences.
+        I enjoy learning by doing, shipping small prototypes, and making ideas real.
+    </p>
+
+    <p>
+        Feel free to reach out! You can find me on
+        <a href="mailto:you@email.com">email</a>,
+        <a href="https://github.com/arturlimaaa" target="_blank">GitHub</a>,
+        or <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>.
+    </p>
+
 </body>
 </html>
