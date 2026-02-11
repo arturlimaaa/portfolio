@@ -1,14 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/projects/pixelator/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pixelator</title>
-    <script type="module" crossorigin src="/projects/pixelator/assets/index-CxZ5eeRS.js"></script>
-    <link rel="stylesheet" crossorigin href="/projects/pixelator/assets/index-CIKa6TRH.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> herd flow </title>
+    <style>
+        body {
+            background: #000000;
+            color: #ffffff;
+            font-family: "Courier New", monospace;            
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        nav {
+            margin-bottom: 40px;
+        }
+
+        nav a {
+            margin-right: 24px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        img {
+            width: 70%;       /* Fills the container width */
+            height: auto;      /* Maintains aspect ratio */
+            border-radius: 4px;
+            margin-bottom: 20px;
+            cursor: zoom-in;   /* Shows the user they can click */
+            transition: opacity 0.2s;
+        }
+
+        img:hover {
+            opacity: 0.9;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: #9d9dff; 
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Lightbox CSS */
+        #lightbox {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark overlay */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            width: auto;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/home/">~</a>
+        <a href="/essays/">essays</a>
+        <a href="/projects/">projects</a>
+    </nav>
+
+    <h1> <a href="https://arturlima.me/projects/pixelator">pixelator </a> </h1>
+
+    <p>I don't even know how to explain this project. It surged as an inspiration from <a href="https://www.guidavid.com/">gui dávid's </a> personal website. I guess there's just something about minimalist art, like pixel art, that fascinates me. It might the room for imagination that exists in a work that doesn't feel complete yet. in fact, this might be the exact reason why I like da Vinci's first fresco, <a href="https://en.wikipedia.org/wiki/The_Battle_of_Anghiari_(Leonardo)">The Battle of Anghiari</a>
+, so much: it feels shallow, yet, it tells you so much about what's going on--you can tell every expression depicted in the scene converges to resemble struggle; no one is saving a single calorie in The Battle. </p>
+    
+    <h2> the old way:</h2>
+    <img src="cs-track.png">
+    <img src="Capture d’écran 2025-12-13 à 00.51.52.png">
+    <img src="Capture d’écran 2025-12-13 à 00.52.05.png">
+
+    <h2> herd flow:</h2>
+    <img src="novo-courses.png">
+    <img src="novo-scheduler.png">
+    <img src="novo-simulator.png">
+
+    <div id="lightbox">
+        <img id="lightbox-img" src="" alt="Full screen image">
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const images = document.querySelectorAll('body > img'); 
+
+        images.forEach(image => {
+            image.addEventListener('click', e => {
+                lightboxImg.src = e.target.src;
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        lightbox.addEventListener('click', e => {
+            if (e.target !== lightboxImg) {
+                lightbox.style.display = 'none';
+            }
+             lightbox.style.display = 'none';
+        });
+    </script>
+    <p>*disclaimer: as of December 2025, this haven't been implemented officially yet, and no data displayed is from wpi's official course database. I am in the process of making this an official tool for the university </p>
+    
+</body>
 </html>
